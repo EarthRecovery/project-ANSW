@@ -1,11 +1,11 @@
 const db = require('../utils/db');
 
 const User = {
-  async create({ username, password_hash, permission, points, level, is_disabled, avatar_url }) {
+  async create({ username, email, password_hash, permission, points, level, is_disabled, avatar_url}) {
     const [result] = await db.execute(
-      `INSERT INTO user (username, password_hash, permission, points, level, is_disabled, avatar_url)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [username, password_hash, permission, points, level, is_disabled, avatar_url]
+      `INSERT INTO user (username, password_hash, permission, points, level, is_disabled, avatar_url, email)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [username, password_hash, permission, points, level, is_disabled, avatar_url, email]
     );
     return result.insertId;
   },

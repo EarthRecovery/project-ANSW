@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const registerController = require('../controllers/registerController');
 
 // 获取用户列表
 router.get('/', userController.list);
@@ -16,5 +17,8 @@ router.put('/:id', userController.update);
 
 // 删除用户
 router.delete('/:id', userController.delete);
+
+// 用户注册
+router.post('/register', registerController.register);
 
 module.exports = router;

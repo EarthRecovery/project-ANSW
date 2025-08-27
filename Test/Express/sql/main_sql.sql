@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户ID，主键，自增',
   `username` VARCHAR(50) NOT NULL UNIQUE COMMENT '账号，用户名，不重复',
+  `email` VARCHAR(100) not null unique COMMENT '邮箱',
   `password_hash` VARCHAR(255) NOT NULL COMMENT '密码哈希（加盐）',
   `permission` TINYINT NOT NULL DEFAULT 0 COMMENT '权限，0=用户，1=管理员',
   `points` INT DEFAULT 0 COMMENT '积分点数',

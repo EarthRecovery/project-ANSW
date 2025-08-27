@@ -1,3 +1,4 @@
+const { register } = require('../controllers/registerController');
 const User = require('../models/user');
 
 const userService = {
@@ -24,6 +25,10 @@ const userService = {
 
   listUsers() {
     return User.findAll();
+  },
+
+  registerUser(userData) {
+    return User.create(userData);
   }
 };
 
