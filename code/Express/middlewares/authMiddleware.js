@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const userService = require('../services/userService');
 
 function authMiddleware(req, res, next) {
     const authHeader = req.headers['authorization'];
@@ -12,12 +13,14 @@ function authMiddleware(req, res, next) {
         return res.status(401).json({ message: 'Malformed token' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
         if (err) {
             return res.status(403).json({ message: 'Invalid or expired token' });
         }
-        req.user = decoded; // 把解码的 payload 挂到 req.user
-        next(); // 继续执行下一个中间件/路由
+        var email = decoded.email;
+        const user = await userService.findUserByEmail(email);
+        req.user = user; 
+        next();
     });
 }
 
