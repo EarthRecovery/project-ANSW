@@ -40,6 +40,11 @@ const User = {
   async findAll() {
     const [rows] = await db.execute(`SELECT * FROM user`);
     return rows;
+  },
+
+  async findByEmail(email) {
+    const [rows] = await db.execute(`SELECT * FROM user WHERE email = ?`, [email]);
+    return rows[0];
   }
 };
 

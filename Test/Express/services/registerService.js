@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const config = require('../config');
 
 const registerService = {
     async check(user){ // username, email, password_hash, permission, points, level, is_disabled, avatar_url
@@ -18,7 +19,7 @@ const registerService = {
         if(!user.password_hash || !isPasswordComplex(user.password_hash)) {
             throw new Error('Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character');
         }else{
-            const salt = await bcrypt.genSalt(10);
+            const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT));
             user.password_hash = await bcrypt.hash(user.password_hash, salt);
         }
         //permission
@@ -32,6 +33,9 @@ const registerService = {
         //level
         if(!user.level || user.level != 0) {
             user.level = 0; // 默认等级为0
+        }
+        if(!user.permission) {
+            user.permission = 0; // 默认权限为普通用户
         }
         //is_disabled
         if(!user.is_disabled) {

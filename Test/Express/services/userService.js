@@ -1,4 +1,3 @@
-const { register } = require('../controllers/registerController');
 const User = require('../models/user');
 
 const userService = {
@@ -21,6 +20,10 @@ const userService = {
 
   deleteUser(id) {
     return User.deleteById(id);
+  },
+
+  findUserByEmail(email) {
+    return User.findByEmail(email);
   },
 
   listUsers() {

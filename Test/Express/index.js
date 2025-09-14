@@ -4,6 +4,8 @@ const port = 486
 
 const routes = require('./routes')
 
+require('dotenv').config();
+
 app.use(express.json())
 
 app.use('/', routes)
